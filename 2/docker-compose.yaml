@@ -1,0 +1,26 @@
+version: '3'
+services:
+    php-apache-environment:
+        container_name: php-apache
+        build: .
+        volumes:
+            - ./php/src:/var/www/html/
+        ports:
+            - 8080:80
+        links:
+            - db
+    db:
+        container_name: db
+        image: mysql:latest
+        environment:
+            MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
+            MYSQL_DATABASE: MYSQL_DATABASE
+            MYSQL_USER: MYSQL_USER
+            MYSQL_PASSWORD: MYSQL_PASSWORD
+        volumes:
+            - ./databases:/docker-entrypoint-initdb.d
+            - db_volume:/var/lib/mysql
+        ports:
+            - "9906:3306"
+volumes:
+    db_volume:
