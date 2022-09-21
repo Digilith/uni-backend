@@ -28,8 +28,6 @@
 
             // size
             $this->size = $getQuery % 10 + 1;
-
-            echo 'parseGet';
         }
 
         function draw(){
@@ -41,8 +39,6 @@
                 $center = $this->size + 10;
                 $tag = "<circle cx='$center' cy='$center' r='$this->size' fill='$this->color'/>";
             }
-
-            echo 'draw';
             return $tag;
         }
 
