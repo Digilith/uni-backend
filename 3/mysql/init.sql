@@ -4,7 +4,7 @@ GRANT SELECT,UPDATE,INSERT ON bookstore;
 FLUSH PRIVELEGES;
 
 USE bookstore;
-CREATE TABLE IF NOT EXISTS user (
+CREATE TABLE IF NOT EXISTS users (
     ID INT(11) NOT NULL AUTO_INCREMENT,
     name VARCHAR(128) NOT NULL,
     surname VARCHAR(128) NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS auth (
 
 INSERT INTO auth (login, password) VALUES ('login', 'password');
 
-INSERT INTO user (name, surname)
+INSERT INTO users (name, surname)
 VALUES
     ('John', 'Smith'),
     ('Jane', 'Doe'),
