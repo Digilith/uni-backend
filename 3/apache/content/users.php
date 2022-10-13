@@ -10,7 +10,7 @@
         <h1>User List</h1>
         <ol>
             <?php
-            $mysqli = new mysqli("db", "root", "example", "bookstore");
+            $mysqli = new mysqli("db", "root", "password", "bookstore");
             $result = $mysqli->query("SELECT * FROM users;");
             foreach ($result as $row){
                 echo "<li>{$row['surname']} {$row['name']}</li>";

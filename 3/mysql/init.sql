@@ -1,5 +1,5 @@
 CREATE DATABASE IF NOT EXISTS bookstore;
-CREATE USER IF NOT EXISTS 'user'@'%' IDENTIFIED BY 'password';
+CREATE USER IF NOT EXISTS 'user'@'%' IDENTIFIED BY 'password'; -- user -> root ?
 GRANT SELECT,UPDATE,INSERT ON bookstore.* TO 'user'@'%';
 FLUSH PRIVILEGES;
 
