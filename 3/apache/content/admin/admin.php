@@ -1,2 +1,2 @@
 <?php
-echo "256";
+echo "Authorization successful!";
