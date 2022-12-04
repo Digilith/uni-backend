@@ -7,24 +7,24 @@ header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 include_once "../config/database.php";
-include_once "../objects/group.php";
+include_once "../objects/user.php";
 
 $database = new Database();
 $db = $database->getConnection();
 
-$course = new Course($db);
+$user = new User($db);
 
 if (!isset($_GET["id"])) {
     http_response_code(400);
-    echo json_encode(array("message" => "Неправильный запрос: не указан ID группы"));
+    echo json_encode(array("message" => "Неправильный запрос: не указан ID юзера"));
 } else {
-    $course->id = $_GET["id"];
-    $stmt = $course->delete();
+    $user->id = $_GET["id"];
+    $stmt = $user->delete();
     if ($stmt) {
         http_response_code(200);
-        echo json_encode(array("message" => "Группа удалена"));
+        echo json_encode(array("message" => "Юзер удалён"));
     } else {
         http_response_code(404);
-        echo json_encode(array("message" => "Группа с таким ID не существует"));
+        echo json_encode(array("message" => "Юзер с таким ID не существует"));
     }
 }

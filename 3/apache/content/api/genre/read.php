@@ -5,23 +5,22 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
 include_once "../config/database.php";
-include_once "../objects/user.php";
+include_once "../objects/genre.php";
 
 $database = new Database();
 $db = $database->getConnection();
 
-$student = new Student($db);
+$genre = new Genre($db);
 
-$query_result = $student->read();
+$query_result = $genre->read();
 
 $result = array("results" => array());
-foreach ($query_result as $student) {
-    $students_obj = array(
-        "id" => $student["id"],
-        "name" => $student["name"],
-        "surname" => $student["surname"]
+foreach ($query_result as $genre) {
+    $courses_obj = array(
+        "id" => $genre["id"],
+        "name" => $genre["name"]
     );
-    $result["results"][] = $students_obj;
+    $result["results"][] = $courses_obj;
 }
 
 http_response_code(200);

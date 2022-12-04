@@ -8,32 +8,31 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 include_once "../config/database.php";
 
-include_once "../objects/user.php";
+include_once "../objects/genre.php";
 
 $database = new Database();
 $db = $database->getConnection();
-$student = new Student($db);
+$genre = new Genre($db);
 
 $data = json_decode(file_get_contents("php://input"));
 
 if (
-    !empty($data->name) &&
-    !empty($data->surname)
+    !empty($data->name)
 ) {
-    $student->name = $data->name;
-    $student->surname = $data->surname;
+    $genre->name = $data->name;
 
-    $stmt = $student->create();
+    $stmt = $genre->create();
 
     if ($stmt) {
         http_response_code(201);
-        echo json_encode(array("message" => "Студент добавлен"), JSON_UNESCAPED_UNICODE);
+        echo json_encode(array("message" => "Жанр создан"), JSON_UNESCAPED_UNICODE);
     } else {
         http_response_code(503);
-        echo json_encode(array("message" => "Невозможно добавить студента"), JSON_UNESCAPED_UNICODE);
+        echo json_encode(array("message" => "Невозможно добавить жанр"), JSON_UNESCAPED_UNICODE);
     }
 } else {
     http_response_code(400);
-    echo json_encode(array("message" => "Невозможно добавить студента: данные неполные"), JSON_UNESCAPED_UNICODE);
+    echo json_encode(array("message" => "Невозможно добавить жанр: данные неполные"), JSON_UNESCAPED_UNICODE);
 }
+
 

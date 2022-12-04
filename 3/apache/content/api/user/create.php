@@ -8,32 +8,31 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 include_once "../config/database.php";
 
-include_once "../objects/group.php";
+include_once "../objects/user.php";
 
 $database = new Database();
 $db = $database->getConnection();
-$course = new Course($db);
+$user = new User($db);
 
 $data = json_decode(file_get_contents("php://input"));
 
 if (
     !empty($data->name) &&
-    !empty($data->description)
+    !empty($data->surname)
 ) {
-    $course->name = $data->name;
-    $course->description = $data->description;
+    $user->name = $data->name;
+    $user->surname = $data->surname;
 
-    $stmt = $course->create();
+    $stmt = $user->create();
 
     if ($stmt) {
         http_response_code(201);
-        echo json_encode(array("message" => "Группа создана"), JSON_UNESCAPED_UNICODE);
+        echo json_encode(array("message" => "Юзер добавлен"), JSON_UNESCAPED_UNICODE);
     } else {
         http_response_code(503);
-        echo json_encode(array("message" => "Невозможно создать группу"), JSON_UNESCAPED_UNICODE);
+        echo json_encode(array("message" => "Невозможно добавить юзера"), JSON_UNESCAPED_UNICODE);
     }
 } else {
     http_response_code(400);
-    echo json_encode(array("message" => "Невозможно создать группу: данные неполные"), JSON_UNESCAPED_UNICODE);
+    echo json_encode(array("message" => "Невозможно добавить юзера: данные неполные"), JSON_UNESCAPED_UNICODE);
 }
-

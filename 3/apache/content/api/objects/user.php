@@ -1,8 +1,7 @@
 <?php
 
-class Student {
+class User {
     private ?mysqli $conn;
-    private string $table_name = "group";
 
     public int $id;
     public ?string $name;
@@ -14,7 +13,7 @@ class Student {
 
     function read() {
         $query = "
-        SELECT s.id, s.name, s.surname FROM user AS s
+        SELECT s.id, s.name, s.surname FROM users AS s
         ORDER BY s.id; 
         ";
 
@@ -26,22 +25,16 @@ class Student {
         $this->name = htmlspecialchars(strip_tags($this->name));
         $this->surname = htmlspecialchars(strip_tags($this->surname));
 
-        $query = "INSERT INTO user(name, surname) VALUE ('".$this->name."', '".$this->surname."');";
+        $query = "INSERT INTO users(name, surname) VALUE ('".$this->name."', '".$this->surname."');";
 
         $stmt = $this->conn->query($query);
         $this->conn->commit();
         return $stmt;
     }
 
-    function readOne() {
-        $query = "SELECT s.id, s.name, s.surname FROM user AS s WHERE s.id = ".$this->id.";";
-        $result = $this->conn->query($query)->fetch_row();
-        return $result;
-    }
-
     function update() {
         $query = "
-            UPDATE user 
+            UPDATE users
             SET name = '".$this->name."', surname = '".$this->surname."' 
             WHERE id = ".$this->id.";
             ";
@@ -51,7 +44,7 @@ class Student {
     }
 
     function delete() {
-        $query = "DELETE FROM user WHERE id = ".$this->id.";";
+        $query = "DELETE FROM users WHERE id = ".$this->id.";";
         $stmt = $this->conn->query($query);
         $this->conn->commit();
         return $stmt;

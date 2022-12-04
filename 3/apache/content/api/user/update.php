@@ -12,7 +12,7 @@ include_once "../objects/user.php";
 $database = new Database();
 $db = $database->getConnection();
 
-$student = new Student($db);
+$user = new User($db);
 
 $data = json_decode(file_get_contents("php://input"));
 
@@ -21,21 +21,20 @@ if (
     !empty($data->name) &&
     !empty($data->surname)
 ) {
-    $student->id = $data->id;
-    $student->name = $data->name;
-    $student->surname = $data->surname;
+    $user->id = $data->id;
+    $user->name = $data->name;
+    $user->surname = $data->surname;
 
-    $stmt = $student->update();
+    $stmt = $user->update();
 
     if ($stmt) {
         http_response_code(201);
-        echo json_encode(array("message" => "Данные студента обновлены"), JSON_UNESCAPED_UNICODE);
+        echo json_encode(array("message" => "Данные юзера обновлены"), JSON_UNESCAPED_UNICODE);
     } else {
         http_response_code(503);
-        echo json_encode(array("message" => "Невозможно обновить данные студента"), JSON_UNESCAPED_UNICODE);
+        echo json_encode(array("message" => "Невозможно обновить данные юзера"), JSON_UNESCAPED_UNICODE);
     }
 } else {
     http_response_code(400);
     echo json_encode(array("message" => "Невозможно обновить данные: данные неполные"), JSON_UNESCAPED_UNICODE);
 }
-

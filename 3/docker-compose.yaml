@@ -11,7 +11,7 @@ services:
     ports:
       - "3308:3306"
   nginx:
-    build: ./nginx
+    image: nginx
     restart: always
     volumes:
       - ./nginx/content:/etc/nginx/html/

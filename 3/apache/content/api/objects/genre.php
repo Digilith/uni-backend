@@ -1,12 +1,10 @@
 <?php
 
-class Course {
+class Genre {
     private ?mysqli $conn;
-    private string $table_name = "group";
 
     public int $id;
     public ?string $name;
-    public ?string $description;
 
     public function __construct($db) {
         $this->conn = $db;
@@ -14,7 +12,7 @@ class Course {
 
     function read() {
         $query = "
-        SELECT s.id, s.name, s.description FROM group AS s
+        SELECT s.id, s.name FROM genre AS s
         ORDER BY s.id; 
         ";
 
@@ -24,25 +22,18 @@ class Course {
 
     function create() {
         $this->name = htmlspecialchars(strip_tags($this->name));
-        $this->description = htmlspecialchars(strip_tags($this->description));
 
-        $query = "INSERT INTO group(name, description) VALUE ('".$this->name."', '".$this->description."');";
+        $query = "INSERT INTO genre(name) VALUE ('".$this->name."');";
 
         $stmt = $this->conn->query($query);
         $this->conn->commit();
         return $stmt;
     }
 
-    function readOne() {
-        $query = "SELECT s.id, s.name, s.description FROM group AS s WHERE s.id = ".$this->id.";";
-        $result = $this->conn->query($query)->fetch_row();
-        return $result;
-    }
-
     function update() {
         $query = "
-            UPDATE group 
-            SET name = '".$this->name."', description = '".$this->description."' 
+            UPDATE genre 
+            SET name = '".$this->name."',
             WHERE id = ".$this->id.";
             ";
         $stmt = $this->conn->query($query);
@@ -51,7 +42,7 @@ class Course {
     }
 
     function delete() {
-        $query = "DELETE FROM group WHERE id = ".$this->id.";";
+        $query = "DELETE FROM genre WHERE id = ".$this->id.";";
         $stmt = $this->conn->query($query);
         $this->conn->commit();
         return $stmt;
